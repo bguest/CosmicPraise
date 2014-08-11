@@ -312,6 +312,30 @@ def radial_spin(t, item, random_values, accum):
     else:
         return (0, 0, 127)
 
+def interpolate_color(val, color1, color2):
+    color = []
+    for i in range(3):
+        color.append( color1[i] + (color2[i] - color1[i])*val )
+
+    return tuple(color)
+
+def wave_z(item, wave_width, height, bg_color, color):
+    z = item['coord'][2]
+    value = 0
+    if abs(z - height) < wave_width/2.0:
+        value = 1.0/2 + 1.0/2 * math.cos(math.pi * (2.0*z/wave_width - height))
+
+    return interpolate_color(value, bg_color, color)
+
+def ossolation(item, ttime):
+    height = 5.0 * math.sin(2*math.pi/5.0 * ttime) + 9;
+    return wave_z(item, 2.0, height, (0,0,255), (255,255,0))
+
+def linear_down(item, ttime, bg_color):
+    period = 5
+    total_height = 15.0
+    height = total_height - ttime%period * total_height/period
+    return wave_z(item, 2.0, height, bg_color, (255,255,0))
 
 #-------------------------------------------------------------------------------
 # send pixels
@@ -332,7 +356,9 @@ def main():
 
             updateRays(events, frame_time)
             for item in items:
-                color = rays_color(t*0.6, item, random_values, accum)
+                bg_color = rays_color(t*0.6, item, random_values, accum)
+                color = linear_down(item, t, bg_color)
+                #color = ossolation(item, t)
                 #color = (255, 0, 0)
                 #color = (color_utils.cos(t, period=color_utils.cos(t, period=30) * 9 + 1) * 255, 0, 0)
                 #color = HSLToScaledRGBTuple(HSLColor(color_utils.cos(t, period=60) * 360, 1.0, color_utils.cos(t, period=3) * 0.3 + 0.2))                

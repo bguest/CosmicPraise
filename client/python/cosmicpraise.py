@@ -372,30 +372,31 @@ def main():
                 set_item_color(item, color)
 
 
-            for item in groups['top-cw']:
-                set_item_color(item, (255,0,255))
-            for item in groups['top-ccw']:
-                set_item_color(item, (0,255,255))
+            if False:
+                for item in groups['top-cw']:
+                    set_item_color(item, (255,0,255))
+                for item in groups['top-ccw']:
+                    set_item_color(item, (0,255,255))
 
-            
-            for item in groups['floodlight']:
-                set_item_color(item, (0,0,255))
-            
-            for item in groups['railing']:
-                hsl = scaledRGBTupleToHSL(get_item_color(item))
-                hsl.hsl_s = 0.7
-                hsl.hsl_l = 0.3 + 0.4 * hsl.hsl_l
-                hsl.hsl_h = 320 + 40 * hsl.hsl_h / 360;
-                set_item_color(item, HSLToScaledRGBTuple(hsl))
-                set_item_color(item, (0,255,0))
+                
+                for item in groups['floodlight']:
+                    set_item_color(item, (0,0,255))
+                
+                for item in groups['railing']:
+                    hsl = scaledRGBTupleToHSL(get_item_color(item))
+                    hsl.hsl_s = 0.7
+                    hsl.hsl_l = 0.3 + 0.4 * hsl.hsl_l
+                    hsl.hsl_h = 320 + 40 * hsl.hsl_h / 360;
+                    set_item_color(item, HSLToScaledRGBTuple(hsl))
+                    set_item_color(item, (0,255,0))
 
-            for item in groups['base']:
-                hsl = scaledRGBTupleToHSL(get_item_color(item))
-                hsl.hsl_s = 0.7
-                hsl.hsl_l = 0.3 + 0.4 * hsl.hsl_l
-                hsl.hsl_h = 280 + 60 * hsl.hsl_h / 360;
-                set_item_color(item, HSLToScaledRGBTuple(hsl))
-                set_item_color(item, (255,0,0))
+                for item in groups['base']:
+                    hsl = scaledRGBTupleToHSL(get_item_color(item))
+                    hsl.hsl_s = 0.7
+                    hsl.hsl_l = 0.3 + 0.4 * hsl.hsl_l
+                    hsl.hsl_h = 280 + 60 * hsl.hsl_h / 360;
+                    set_item_color(item, HSLToScaledRGBTuple(hsl))
+                    set_item_color(item, (255,0,0))
             
 
             for address in clients:
